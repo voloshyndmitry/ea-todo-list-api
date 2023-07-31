@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 
 import { AuthGuard } from '../Services/auth.guard';
-import { CreateTaskDto } from '../DTO/create-Task.dto';
+import { CreateTaskDto } from '../DTO/create-task.dto';
 import { TasksService } from '../Services/tasks.service';
 import { TaskDataClass } from 'src/Schemas/tasks.schema';
 
