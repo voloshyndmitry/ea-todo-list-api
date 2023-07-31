@@ -1,15 +1,15 @@
-import { Model } from "mongoose";
-import { Injectable, UnauthorizedException } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import { AuthDataClass } from "../Schemas/auth.schema";
-import { JwtService } from "@nestjs/jwt";
+import { Model } from 'mongoose';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { AuthDataClass } from '../Schemas/auth.schema';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectModel(AuthDataClass.name) private authModel: Model<AuthDataClass>,
 
-    private jwtService: JwtService
+    private jwtService: JwtService,
   ) {}
 
   async findOne(login: string): Promise<AuthDataClass> {
