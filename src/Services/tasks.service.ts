@@ -87,8 +87,8 @@ export class TasksService {
     });
   }
 
-  async getTasksByName(name: string): Promise<TaskDataClass> {
-    return this.TasksModel.findOne({
+  async getTasksByName(name: string): Promise<TaskDataClass[]> {
+    return this.TasksModel.find({
       value: { $regex: name, $options: 'i' },
     }).exec();
   }

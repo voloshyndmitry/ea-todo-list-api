@@ -47,9 +47,24 @@ export class TasksGateWay implements OnModuleInit {
 
   @SubscribeMessage('filterByName')
   async filterByName(@MessageBody() body: string) {
+    if (!body) {
+      this.updateAllLists();
+    }
     console.log('deleteAll', body);
     const data = await this.TasksService.getTasksByName(body);
     console.log({ data });
+    const todoList = data.filter(({ isDone, visible }) => !isDone && visible);
+    const doneList = data.filter(({ isDone, visible }) => isDone && visible);
+
+    this.server.emit('updateTodoLists', {
+      msg: 'updateLists',
+      content: { data: todoList },
+    });
+
+    this.server.emit('updateDoneLists', {
+      msg: 'updateLists',
+      content: { data: doneList },
+    });
   }
 
   @SubscribeMessage('taskUpdate')
