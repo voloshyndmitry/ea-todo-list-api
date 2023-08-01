@@ -53,7 +53,9 @@ export class TasksGateWay implements OnModuleInit {
       .filter(({ isDone, visible }) => isDone && visible)
       .sort((a, b) => Number(a?.created?.date) - Number(b?.created?.date));
 
-    doneList.length = 10;
+    if (doneList.length > 10) {
+      doneList.length = 10;
+    }
 
     this.server.emit('updateTodoLists', {
       msg: 'updateLists',
@@ -82,9 +84,13 @@ export class TasksGateWay implements OnModuleInit {
     const todoList = allTasks.filter(
       ({ isDone, visible }) => !isDone && visible,
     );
-    const doneList = allTasks.filter(
-      ({ isDone, visible }) => isDone && visible,
-    );
+    const doneList = allTasks
+      .filter(({ isDone, visible }) => isDone && visible)
+      .sort((a, b) => Number(a?.created?.date) - Number(b?.created?.date));
+
+    if (doneList.length > 10) {
+      doneList.length = 10;
+    }
 
     this.server.emit('updateTodoLists', {
       msg: 'updateLists',
