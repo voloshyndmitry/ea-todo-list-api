@@ -43,8 +43,8 @@ export class TasksController {
 
   @UseGuards(AuthGuard)
   @Get()
-  async findAll(@Request() req: any): Promise<TaskDataClass[]> {
-    return this.TasksService.findAll(req.user);
+  async findAll(): Promise<TaskDataClass[]> {
+    return this.TasksService.findAll();
   }
 
   @UseGuards(AuthGuard)

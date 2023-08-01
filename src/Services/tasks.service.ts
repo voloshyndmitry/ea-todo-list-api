@@ -34,6 +34,10 @@ export class TasksService {
     }
   }
 
+  async hideAll(): Promise<undefined> {
+    await this.TasksModel.updateMany({ visible: true }, { visible: false });
+  }
+
   async update(createTaskDto: CreateTaskDto, user): Promise<TaskDataClass> {
     const { id, ...updateData } = createTaskDto;
     const updated = {
@@ -70,13 +74,19 @@ export class TasksService {
     return resp;
   }
 
-  async findAll(user): Promise<TaskDataClass[]> {
+  async findAll(): Promise<TaskDataClass[]> {
     const Tasks = await this.TasksModel.find().exec();
 
     return Tasks.map((Task) => {
       const { _id, ...TaskData } = Task.toObject();
       return TaskData;
     });
+  }
+
+  async getTasksByName(name: string): Promise<TaskDataClass> {
+    return this.TasksModel.findOne({
+      value: { $regex: name, $options: 'i' },
+    }).exec();
   }
 
   async findOne(id: string): Promise<TaskDataClass> {
