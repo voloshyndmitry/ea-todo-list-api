@@ -29,7 +29,7 @@ export class TasksController {
   @UseGuards(AuthGuard)
   @Put()
   async update(@Body() CreateTasksDto: CreateTaskDto, @Request() req: any) {
-    return this.TasksService.update(CreateTasksDto, req.user);
+    return this.TasksService.update(CreateTasksDto);
   }
 
   @UseGuards(AuthGuard)
