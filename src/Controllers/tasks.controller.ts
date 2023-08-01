@@ -23,7 +23,7 @@ export class TasksController {
   @UseGuards(AuthGuard)
   @Post()
   async create(@Body() CreateTasksDto: CreateTaskDto, @Request() req: any) {
-    return this.TasksService.create(CreateTasksDto, req.user);
+    return this.TasksService.create(CreateTasksDto);
   }
 
   @UseGuards(AuthGuard)
