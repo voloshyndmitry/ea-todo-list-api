@@ -13,23 +13,25 @@ export class TasksService {
     private TasksModel: Model<TaskDataClass>,
   ) {}
 
-  async create(createTaskDto, user): Promise<boolean> {
+  async create(createTaskDto): Promise<boolean> {
     const id = `event${generateId()}`;
     const created = {
       date: new Date().getTime(),
-      userId: user.sub,
     };
     try {
       const createdTask = new this.TasksModel({
         ...createTaskDto,
         id,
         created,
+        visible: true,
+        isDone: false,
       });
 
       await createdTask.save();
-
+      console.log('create done');
       return true;
     } catch {
+      console.log('create fail');
       return false;
     }
   }

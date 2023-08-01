@@ -34,7 +34,7 @@ export class TasksGateWay implements OnModuleInit {
   @SubscribeMessage('addNewTask')
   async onUpdateList(@MessageBody() body: CreateTaskDto) {
     console.log({ body });
-    await this.TasksService.create(body, {});
+    await this.TasksService.create(body);
     this.updateAllLists();
   }
 

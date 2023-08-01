@@ -22,7 +22,7 @@ export class TaskDataClass {
   @Prop({ required: true, type: MetaDataSchema })
   created: MetaData;
 
-  @Prop({ required: true, type: MetaDataSchema })
+  @Prop({ type: MetaDataSchema })
   updated: MetaData;
 }
 
