@@ -43,7 +43,7 @@ export class TasksGateWay implements OnModuleInit {
     const todoList = data.filter(({ isDone, visible }) => !isDone && visible);
     const doneList = data
       .filter(({ isDone, visible }) => isDone && visible)
-      .sort((a, b) => Number(a?.updated?.date) - Number(b?.updated?.date));
+      .sort((a, b) => Number(b?.updated?.date) - Number(a?.updated?.date));
 
     if (doneList.length > 10) {
       doneList.length = 10;
@@ -78,7 +78,7 @@ export class TasksGateWay implements OnModuleInit {
     );
     const doneList = allTasks
       .filter(({ isDone, visible }) => isDone && visible)
-      .sort((a, b) => Number(a?.updated?.date) - Number(b?.updated?.date));
+      .sort((a, b) => Number(b?.updated?.date) - Number(a?.updated?.date));
 
     if (doneList.length > 10) {
       doneList.length = 10;
