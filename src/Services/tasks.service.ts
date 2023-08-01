@@ -53,7 +53,7 @@ export class TasksService {
     };
     const resp = await this.TasksModel.findOneAndUpdate(
       { id },
-      { isDone: true, updated },
+      { ...updateData, updated },
     );
 
     return resp;
