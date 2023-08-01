@@ -3,6 +3,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TasksController } from '../Controllers/tasks.controller';
 import { TaskDataClass, TaskSchema } from '../Schemas/tasks.schema';
 import { TasksService } from '../Services/tasks.service';
+import { TasksGateWay } from 'src/Services/tasks.gateway';
+
 @Module({
   imports: [
     MongooseModule.forFeature([
@@ -10,6 +12,6 @@ import { TasksService } from '../Services/tasks.service';
     ]),
   ],
   controllers: [TasksController],
-  providers: [TasksService],
+  providers: [TasksService, TasksGateWay],
 })
 export class TasksModule {}

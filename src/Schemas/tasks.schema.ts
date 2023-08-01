@@ -16,6 +16,9 @@ export class TaskDataClass {
   @Prop({ required: true, type: Boolean })
   visible: boolean;
 
+  @Prop({ type: Boolean })
+  isDone: boolean;
+
   @Prop({ required: true, type: MetaDataSchema })
   created: MetaData;
 
