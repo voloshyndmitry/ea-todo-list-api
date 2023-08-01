@@ -52,6 +52,14 @@ export class TasksGateWay implements OnModuleInit {
     console.log({ data });
   }
 
+  @SubscribeMessage('taskDone')
+  async taskDone(@MessageBody() body: CreateTaskDto) {
+    console.log('taskDone', body);
+    const data = await this.TasksService.update(body);
+    this.updateAllLists();
+    console.log({ data });
+  }
+
   @SubscribeMessage('init')
   async init(@MessageBody() body: string) {
     this.updateAllLists();

@@ -46,18 +46,14 @@ export class TasksService {
     );
   }
 
-  async update(createTaskDto: CreateTaskDto, user): Promise<TaskDataClass> {
+  async update(createTaskDto: CreateTaskDto): Promise<TaskDataClass> {
     const { id, ...updateData } = createTaskDto;
     const updated = {
       date: new Date().getTime(),
-      userId: user.sub,
     };
     const resp = await this.TasksModel.findOneAndUpdate(
       { id },
-      { ...updateData, updated },
-      {
-        new: true,
-      },
+      { isDone: true, updated },
     );
 
     return resp;
