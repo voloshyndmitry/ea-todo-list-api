@@ -23,8 +23,6 @@ export class TasksGateWay implements OnModuleInit {
 
   @SubscribeMessage('newMessage')
   onNewMessage(@MessageBody() body: any) {
-    console.log({ body });
-
     this.server.emit('onMessage', {
       msg: 'new message',
       content: body,
@@ -33,14 +31,12 @@ export class TasksGateWay implements OnModuleInit {
 
   @SubscribeMessage('addNewTask')
   async onUpdateList(@MessageBody() body: CreateTaskDto) {
-    console.log({ body });
     await this.TasksService.create(body);
     this.updateAllLists();
   }
 
   @SubscribeMessage('deleteAll')
   async deleteAll(@MessageBody() body: CreateTaskDto) {
-    console.log('deleteAll', body);
     await this.TasksService.hideAll();
     this.updateAllLists();
   }
@@ -50,11 +46,14 @@ export class TasksGateWay implements OnModuleInit {
     if (!body) {
       this.updateAllLists();
     }
-    console.log('deleteAll', body);
     const data = await this.TasksService.getTasksByName(body);
-    console.log({ data });
+
     const todoList = data.filter(({ isDone, visible }) => !isDone && visible);
-    const doneList = data.filter(({ isDone, visible }) => isDone && visible);
+    const doneList = data
+      .filter(({ isDone, visible }) => isDone && visible)
+      .sort((a, b) => Number(a?.created?.date) - Number(b?.created?.date));
+
+    doneList.length = 10;
 
     this.server.emit('updateTodoLists', {
       msg: 'updateLists',
@@ -69,10 +68,8 @@ export class TasksGateWay implements OnModuleInit {
 
   @SubscribeMessage('taskUpdate')
   async taskUpdate(@MessageBody() body: CreateTaskDto) {
-    console.log('taskUpdate', body);
     const data = await this.TasksService.update(body);
     this.updateAllLists();
-    console.log({ data });
   }
 
   @SubscribeMessage('init')
