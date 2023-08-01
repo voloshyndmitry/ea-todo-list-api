@@ -37,7 +37,13 @@ export class TasksService {
   }
 
   async hideAll(): Promise<undefined> {
-    await this.TasksModel.updateMany({ visible: true }, { visible: false });
+    const updated = {
+      date: new Date().getTime(),
+    };
+    await this.TasksModel.updateMany(
+      { visible: true },
+      { visible: false, updated },
+    );
   }
 
   async update(createTaskDto: CreateTaskDto, user): Promise<TaskDataClass> {
